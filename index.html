@@ -18,24 +18,26 @@
   <body>
     
 <header>
-  <div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-    </div>
-  </div>
   <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between">
-        <strong class="navbar-brand d-flex align-items-center">Portfolio</strong>
+      <div class="col-md-3">
+      <strong class="navbar-brand d-flex align-items-center">Portfolio</strong>
+      </div>
+      <div class="col-md-2">
+      <a href="files/cv.docx"><span class="navbar-brand d-flex align-items-center">CV</span></a>
+      </div>
+      <div class="col-md-2">
+      <a href="#" data-toggle="modal" data-target="#modal-contact">
+      <span class="navbar-brand d-flex align-items-center">Contact</span>
+      </a>
+      </div>
     </div>
   </div>
 </header>
 
 
 <main role="main">
-  <!--
-  <section class="jumbotron text-center">
-    <div class="container"></div>
-  </section>
--->
+  
   <div class="album py-5 bg-light">
     <div class="container">
 
@@ -178,32 +180,6 @@
 </main>
 
 <!-- stockage des modal -->
-  <div class="modal fade" id="modal-semaforce" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">SEMAforce</h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-    <div class="modal-body">
-      Outil d'analyse de la base SEMAFORE
-      <img src="img/semaforce.png" style="width: 600px;">
-      
-      <ul><li>Recherche</li></ul>
-      Recherche géographique
-
-      <ul><li>Affichage des PV</li></ul>
-      Recherche rapide, filtres, coloration
-
-      <ul><li>Cartographie</li></ul>
-      Affichage des relevés radiogoniométriques
-
-
-      <ul><li>Schéma</li></ul>
-      Génération d'un schéma RZO basé sur les alternats affichés.
-      Essai d'une phrase beaucoup plus longue beaucoup plus longue beaucoup plus longue beaucoup plus longue beaucoup plus longue.
-
-    </div>
-  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
-  </div></div></div>
-
 
 <div class="modal fade" id="modal-multirechercheexcel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
@@ -224,17 +200,6 @@
     <div class="modal-body">
       EventDensity
       
-    </div>
-  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
-  </div></div></div>
-
-
-<div class="modal fade" id="modal-etincherche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Etincherche</h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-    <div class="modal-body">
-      etincherche
     </div>
   <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
   </div></div></div>
@@ -319,6 +284,17 @@
     <div class="modal-body">
       SharpSQL
       
+    </div>
+  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
+  </div></div></div>
+
+
+<div class="modal fade" id="modal-contact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Contact</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+    <div class="modal-body">
+      vincent.marie@pm.me
     </div>
   <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
   </div></div></div>
