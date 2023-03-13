@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <title>20100dbg Portfolio</title>
+    <title>Logiciels métier</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -12,6 +12,7 @@
 
     <style>
       .modal-dialog { max-width: 800px; }
+      .capture { border: 1px solid #000000; }
     </style>
 
   </head>
@@ -22,9 +23,6 @@
     <div class="container d-flex justify-content-between">
       <div class="col-md-3">
       <strong class="navbar-brand d-flex align-items-center">Portfolio</strong>
-      </div>
-      <div class="col-md-2">
-      <a href="files/cv.docx"><span class="navbar-brand d-flex align-items-center">CV</span></a>
       </div>
       <div class="col-md-2">
       <a href="#" data-toggle="modal" data-target="#modal-contact">
@@ -45,6 +43,21 @@
         
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
+            <img src="img/semaforce.png">
+            <div class="card-body">
+              <h3>SEMAforce</h3>
+              <p class="card-text">Outil d'analyse de la base SEMAFORE. 
+              Lecture des PV, affichage des relevés gonio, schéma réseau, extracts en CSV et KML
+            </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-semaforce">Plus de détails</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
             <img src="img/multirechercheexcel.png">
             <div class="card-body">
               <h3>MultiRechercheExcel</h3>
@@ -61,7 +74,7 @@
             <img src="img/eventdensity.png">
             <div class="card-body">
               <h3>EventDensity</h3>
-              <p class="card-text">Suivi des évènements</p>
+              <p class="card-text">Visualisation des évènements</p>
               <div class="d-flex justify-content-between align-items-center">
                 <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-eventdensity">Plus de détails</a>
               </div>
@@ -69,52 +82,18 @@
           </div>
         </div>
         
-        
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" 
-            role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/>
-            <text x="42%" y="50%" fill="#eceeef" dy=".3em">Tempana</text></svg>
-
+            <img src="img/tempana.png">
             <div class="card-body">
               <h3>Tempana</h3>
-              <p class="card-text">Analyse systémique</p>
+              <p class="card-text">Analyse temporelle des évènements, évolutions et récurrences</p>
               <div class="d-flex justify-content-between align-items-center">
                 <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-tempana">Plus de détails</a>
               </div>
             </div>
           </div>
         </div>
-
-
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src="img/arduino.png">
-            <div class="card-body">
-              <h3>Projets arduino</h3>
-              <p class="card-text">Projets arduino</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-arduino">Plus de détails</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src="img/slidercontrol.png">
-            <div class="card-body">
-              <h3>SliderControl</h3>
-              <p class="card-text">Contrôle WinForm de type slider</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-slidercontrol">Plus de détails</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
 
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
@@ -129,13 +108,12 @@
           </div>
         </div>
 
-
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
             <img src="img/schemamaker.png">
             <div class="card-body">
               <h3>SchemaMaker</h3>
-              <p class="card-text">Visualisation, création édition de schéma réseau</p>
+              <p class="card-text">Visualisation, création et édition de schéma réseau</p>
               <div class="d-flex justify-content-between align-items-center">
                 <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-schemamaker">Plus de détails</a>
               </div>
@@ -143,34 +121,76 @@
           </div>
         </div>
 
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img src="img/etincherche.png">
+            <div class="card-body">
+              <h3>Etincherche</h3>
+              <p class="card-text">Recherche dans la base ETINCEL</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-etincherche">Plus de détails</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img src="img/automarquant.png">
+            <div class="card-body">
+              <h3>AutoMarquant</h3>
+              <p class="card-text">Correction et enrichissement des formats TEDIR</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-automarquant">Plus de détails</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img src="img/ssehelper.png">
+            <div class="card-body">
+              <h3>SSE helper</h3>
+              <p class="card-text">Outil d'aide </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-ssehelper">Plus de détails</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img src="img/dramatique.png">
+            <div class="card-body">
+              <h3>DRaMatique</h3>
+              <p class="card-text">Traitement des PV DRM</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-dramatique">Plus de détails</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" 
+            role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Outils geo</title><rect width="100%" height="100%" fill="#55595c"/>
+            <text x="42%" y="50%" fill="#eceeef" dy=".3em">Outils geo</text></svg>
+
+            <div class="card-body">
+              <h3>Outils geo</h3>
+              <p class="card-text">BDD Gonio<br>Convertisseur de coordonnées<br>Import massif de symboles dans Globalmapper</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-outilsgeo">Plus de détails</a>
+              </div>
+            </div>
+          </div>
+        </div>
         
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src="img/hashit.png">
-            <div class="card-body">
-              <h3>HashIt</h3>
-              <p class="card-text">Logiciel de hachage</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-hashit">Plus de détails</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src="img/sharpsql.png">
-            <div class="card-body">
-              <h3>SharpSQL</h3>
-              <p class="card-text">Client SQL multi-base de données</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <a href="#" class="text-muted" data-toggle="modal" data-target="#modal-sharpsql">Plus de détails</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
 
       </div>
 
@@ -181,9 +201,56 @@
 
 <!-- stockage des modal -->
 
+<div class="modal fade" id="modal-semaforce" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Outil d'analyse de la base SEMAFORE</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+    <div class="modal-body">
+      SEMAforce exploite au maximum la base de données SEMAFORE pour localiser 
+      les activités VUHF et générer des extract réutilisables<br>
+      <br>
+      <b>Recherche</b><br>
+      - Recherche par date, fréquences, indicatifs, capteur, etc<br>
+      - Recherche de conversation entre deux indicatifs<br>
+      - Recherche par zone géographique<br>
+      <img src="img/semaforce/1.png" class="capture" style="width: 400px;"><br>
+<br>
+      <b>Affichage des PV</b><br>
+      - Recherche rapide
+      - Filtre par fréquence, langue, capteur, etc
+      - Coloration des alternats<br>
+      <img src="img/semaforce/2.png" class="capture" style="width: 400px;"><br>
+<br>
+      <b>Cartographie</b><br>
+      - Affichage des relevés radiogoniométriques<br>
+      - Sélection du fond de carte<br>
+      - Curseur timeline<br>
+      <img src="img/semaforce/3.png" class="capture" style="width: 400px;"><br>
+<br>
+      <b>Schéma</b><br>
+      - Génération d'un schéma réseau<br>
+      <img src="img/semaforce/4.png" class="capture" style="width: 400px;"><br>
+<br>
+      <b>Extracts</b><br>
+      - Liste des indicatifs par fréquences<br>
+      - Localisation d'activités VUHF<br>
+      - Relevés radiogoniométriques<br>
+      - Relevés horaires des indicatifs et fréquences<br>
+      <img src="img/semaforce/5.png" class="capture" style="width: 400px;"><br>
+<br>
+      <b>Import de fichiers</b><br>
+      Au lieu d'utiliser la base SEMAFORE, lit un fichier pour construire des extracts.<br>
+      - Fichier MIS du RESOLVE<br>
+      - BDD VUHF du CCAROEM<br>
+      - FITEC 5 format SEMAforce<br>
+
+    </div>
+  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
+  </div></div></div>
+
 <div class="modal fade" id="modal-multirechercheexcel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">MultiRechercheExcel</h5>
+  <h5 class="modal-title" id="exampleModalLabel">Outil de recherche et de recoupement générique</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
     <div class="modal-body">
       MultiRechercheExcel est un outil de recherche et de recoupement.<br>
@@ -213,7 +280,7 @@
 
 <div class="modal fade" id="modal-eventdensity" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">EventDensity</h5>
+  <h5 class="modal-title" id="exampleModalLabel">Outil de visualisation des évènements</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
     <div class="modal-body">
       EventDensity affiche des évènements sous forme de points et de carte de chaleur.<br>
@@ -228,7 +295,6 @@
       - Carte de chaleur définie selon la concentration des points ou selon une valeur affectée à chaque points<br>
       - Représentation de tous les évènements sur un bandeau temporel<br>
 
-      
     </div>
   <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
   </div></div></div>
@@ -236,10 +302,10 @@
 
 <div class="modal fade" id="modal-tempana" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Tempana</h5>
+  <h5 class="modal-title" id="exampleModalLabel">Analyse des évènements dans le temps</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
     <div class="modal-body">
-Tempana permet de visualiser les évènements sur graphiques.<br>
+      Tempana permet de visualiser les évènements sur graphiques.<br>
 <br>
       Lecture de fichiers CSV.<br>
       <br>
@@ -256,91 +322,144 @@ Tempana permet de visualiser les évènements sur graphiques.<br>
       <br>
       - Récurrence par heure et jours de la semaine<br>
       - Récurrence par heure et jours du mois<br>
-      
+          
     </div>
   <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
   </div></div></div>
-
-
-<div class="modal fade" id="modal-arduino" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Projets arduino</h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-    <div class="modal-body">
-      Projets arduino<br>
-      - Escape game "bombe"<br>
-      - Escape game "module"<br>
-      
-    </div>
-  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
-  </div></div></div>
-
-
-<div class="modal fade" id="modal-slidercontrol" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">SliderControl</h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-    <div class="modal-body">
-      Contrôle WinForm.<br>
-
-      Propriétés<br>
-      Taille, position<br>
-      
-      Evenement<br>
-      Taille, position<br>
-    </div>
-  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
-  </div></div></div>
-
 
 <div class="modal fade" id="modal-metaeraser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">MetaEraser</h5>
+  <h5 class="modal-title" id="exampleModalLabel">Supression des métadonnées</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
     <div class="modal-body">
-            Supprime les métadonnées sur les fichiers les plus courants<br>
+      Supprime les métadonnées sur les fichiers les plus courants<br>
       <br>
       - Supporte les formats :<br>
       - PDF<br>
       - Office (PPTX, PPTM, DOCX, DOCM, XLSX, XLSM)<br>
       - Tous les fichiers médias supportés par exiftool (images, sons, vidéos)<br>
 
-      
     </div>
   <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
   </div></div></div>
-
 
 <div class="modal fade" id="modal-schemamaker" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">SchemaMaker</h5>
+  <h5 class="modal-title" id="exampleModalLabel">Visualisation et édition de schéma</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
     <div class="modal-body">
-      SchemaMaker
+
+      Visualiseur simple<br>
+
+      Editeur complet<br>
       
+
+    </div>
+  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
+  </div></div></div>
+
+<div class="modal fade" id="modal-etincherche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Etincherche</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+    <div class="modal-body">
+      <h4>Outil de recherche pour la base Etincel</h4>
+      
+      Recherche d'eltecs <br>
+      - Recherche d'eltecs individuels ou en masse depuis un extract<br>
+<br>
+      Profil de fichiers<br>
+      - Définition du format des fichiers à importer pour effectuer une recherche de masse<br>
+      Indiquer les colonnes contenant des eltecs et les colonnes à remonter si un eltec est trouvé<br>
+<br>
+      Base GSM<br>
+      - Liste des MCC / MNC<br>
+<br>
+      Base TAC<br>
+      - Correspondance IMEI <-> Marque/modèle<br>
+<br>
     </div>
   <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
   </div></div></div>
 
 
-<div class="modal fade" id="modal-hashit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-automarquant" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">HashIt</h5>
+  <h5 class="modal-title" id="exampleModalLabel">AutoMarquant</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
     <div class="modal-body">
-      HashIt
+      <h4>Edition de formats TEDIR</h4>
       
+      <br>
+      Attribution de marquants<br>
+      - Alimentation d'une base de données mot-clé/marquant<br>
+      <br>
+      Vérification sommaire<br>
+      - Vérifie la longueur des lignes<br>
+      - Vérifie les problèmes d'encodage<br>
+      - Vérifie la présence de caractères spéciaux dans les GT<br>
+      - Vérifie la présence de chiffres dans les GT<br>
+      <br>
+      Gestion des conflits<br>
+      - Un nom enregistré avec deux marquants différents<br>
+      - Deux mots composés qui se chevauchent<br>
+      <br>
+
     </div>
   <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
   </div></div></div>
 
 
-<div class="modal fade" id="modal-sharpsql" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-ssehelper" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">SharpSQL</h5>
+  <h5 class="modal-title" id="exampleModalLabel">SSEhelper</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
     <div class="modal-body">
-      SharpSQL
+      <h4>SSEhelper</h4>
+
+      SSEhelper génère les fichiers de mise à jour de la base ETINCEL à destination de GESTIM.<br>    
+<br>
+      Saisie des eltecs<br>
+      - IMEI/IMSI des téléphones récupérés<br>
+      - Liste des contacts<br>
+      - Nettoyage automatique<br>
+      <br>
+      Génération des fichiers<br>
+      - Informations liés aux appareils récupérés<br>
+      - Liste des contacts inconnus en base<br>
+      - Liste des contacts connus en base<br>
+<br>
+
+    </div>
+  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
+  </div></div></div>
+
+
+<div class="modal fade" id="modal-dramatique" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">DRaMatique</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+    <div class="modal-body">
+      <h4>Outil de traitement des PV DRM</h4>
+
+      Mise en base des PV au format TXT<br>
+      - Les PV reçus sont constitués d'une partie entêtes contenant les détails techniques du PV<br>
+      - La seconde partie contient le discursif<br>
+      <br>
+      Recherche<br>
+      - Recherche multi-critères semblable à SEMAFORE (date, FRQ, API,...)
+      <br>
+      
+    </div>
+  <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
+  </div></div></div>
+
+<div class="modal fade" id="modal-outilsgeo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Outils Geo</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+    <div class="modal-body">
+      <h4>Outils geo divers</h4>
       
     </div>
   <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
@@ -352,7 +471,7 @@ Tempana permet de visualiser les évènements sur graphiques.<br>
   <h5 class="modal-title" id="exampleModalLabel">Contact</h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
     <div class="modal-body">
-      vincent.marie@pm.me
+      <a href="mailto:vincent.marie@intradef.gouv.fr">vincent.marie@intradef.gouv.fr</a>
     </div>
   <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button></div>
   </div></div></div>
@@ -366,6 +485,6 @@ Tempana permet de visualiser les évènements sur graphiques.<br>
 
 <script src="js/jquery.slim.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
-      
+    
   </body>
 </html>
