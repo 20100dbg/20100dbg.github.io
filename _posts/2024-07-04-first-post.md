@@ -2,7 +2,7 @@
 title: "First post"
 date: 2024-07-04T14:40:30-04:00
 categories:
-  - blog
+  - Blog
 tags:
   - first
 ---
