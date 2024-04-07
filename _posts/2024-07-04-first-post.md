@@ -3,9 +3,9 @@ title: "First post"
 categories:
   - Blog
 tags:
-  - First post
+  - dev
+  - security
 ---
 
 Soooo... let's try this, I guess.
-
-I'm using [Jekyll](https://jekyllrb.com/) as blog engine and [Minimal Mistatakes](https://mmistakes.github.io/minimal-mistakes/) as theme
+This will be my place to write some thoughts
