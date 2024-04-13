@@ -1,3 +1,13 @@
+---
+title: "Get that DB access : a Java application analysis"
+categories:
+  - Reverse
+tags:
+  - Gentle Reverse Engineering
+  - MySQL
+  - Java
+---
+
 ## Get that DB access : a Java application analysis
 
 
@@ -58,8 +68,8 @@ FLUSH PRIVILEGES;
 
 And we're finally done.
 
-![Reset MySQL password](assets/images/post-20240413/0_mysql_reset.png)
-![Root password](assets/images/post-20240413/0_mysql_root_pass.png)
+![Reset MySQL password](/assets/images/post-20240413/0_mysql_reset.png)
+![Root password](/assets/images/post-20240413/0_mysql_root_pass.png)
 
 [http://doc.docs.sk/mysql-refman-5.5/resetting-permissions.html](Reset MySQL root's password)
 
@@ -72,20 +82,20 @@ The installer takes care of installing and configuring the MySQL database (creat
 
 Several tools exist for decompressing setups, but InnoExtractor was the most useful. After dissecting the executable, we find icons, scripts, a binary and an extraction of this binary, a file called CodeSection.txt
 
-![Extracted setup files](assets/images/post-20240413/1_extract_files.png)
+![Extracted setup files](/assets/images/post-20240413/1_extract_files.png)
 
 
 In this file we find several SQL queries, in particular to create a user and set passwords. And bingo, at the end of this file, we find two strings looking like passwords.
 
-![Extracted setup script](assets/images/post-20240413/1_extract_script.png)
+![Extracted setup script](/assets/images/post-20240413/1_extract_script.png)
 
 
 This is easily confirmed by searching for GlobalVar[7] and GlobalVar[8], and indeed these variables are used for the identification and creation of a user.
 
-![Extracted setup script 2](assets/images/post-20240413/1_extract_script_2.png)
+![Extracted setup script 2](/assets/images/post-20240413/1_extract_script_2.png)
 
 
-[http://havysoft.cl/](assets/images/post-20240413/InnoExtractor homepage)
+[http://havysoft.cl/](/assets/images/post-20240413/InnoExtractor homepage)
 
 
 ### Option 2 : Interception of the configuration script
@@ -93,7 +103,7 @@ This is easily confirmed by searching for GlobalVar[7] and GlobalVar[8], and ind
 By monitoring file system activity with ProcMon during software installation, one can track file creations, modifications and deletions.
 This monitoring quickly shows that the installer creates a file named mysql_setup.bat. This is a MySQL database configuration script, and contains the queries observed in the CodeSection.txt file seen in the previous method.
 
-![Process monitor](assets/images/post-20240413/2_procmon.png)
+![Process monitor](/assets/images/post-20240413/2_procmon.png)
 
 
 This file is supposed to be deleted immediately after execution, but it is easy to copy it before deletion. In the event that the file is deleted too quickly for a human to copy it, one can create a script that would monitor the creation of files in the affected directory and perform the copy automatically.
@@ -103,9 +113,9 @@ This file is supposed to be deleted immediately after execution, but it is easy 
 
 We can therefore open and inspect the file, note the creation and modification requests from MySQL users, and extract the passwords.
 
-![Bat script](assets/images/post-20240413/2_script_bat.png.png)
+![Bat script](/assets/images/post-20240413/2_script_bat.png.png)
 
-[https://learn.microsoft.com/fr-fr/sysinternals/downloads/procmon](assets/images/post-20240413/Sysinternals procmon)
+[https://learn.microsoft.com/fr-fr/sysinternals/downloads/procmon](/assets/images/post-20240413/Sysinternals procmon)
 
 
 ### Option 3 : Decompile the .class files
@@ -120,7 +130,7 @@ If no particular JAR file stands out, you can always decompile the whole thing a
 
 In my case, I quickly found a class which contains several constants used in various parts of the software, including my famous MySQL accesses.
 
-![Decompile JAVA](assets/images/post-20240413/3_jad_creds.png)
+![Decompile JAVA](/assets/images/post-20240413/3_jad_creds.png)
 
 [http://java-decompiler.github.io/](Java Decompiler)
 
@@ -137,12 +147,12 @@ In our case, both solutions are valid. Dumping a process means we obtain a file 
 A process dump contains many infos about a running application, its code and memory.
 Maybe we will find something interesting inside such dump ?
 
-![Dump process memory](assets/images/post-20240413/4_dump.png)
-![Dump process memory](assets/images/post-20240413/4_dump2.png)
+![Dump process memory](/assets/images/post-20240413/4_dump.png)
+![Dump process memory](/assets/images/post-20240413/4_dump2.png)
 
 Let's open the file with a hex editor (I like HxD)
 By searching for "mysql", "password" or the mysql username if found before, you can easily find the password several times
-![Dump process memory](assets/images/post-20240413/4_dump3.png)
+![Dump process memory](/assets/images/post-20240413/4_dump3.png)
 
 
 [https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer](Sysinternals ProcessExplorer)
@@ -166,8 +176,8 @@ We just need to find those PEM files and add them in Wireshark, so TLS packets g
 Anyway MySQL auth protocol being secure enough, we won't intercept mysql users' creds that way.
 But we can see SQL queries in plaintext, meaning we could maybe grab sensitive data, such as software-level credentials, columns and tables names, maybe potentials SQLi vectors ?
 
-![Network capture encrypted](assets/images/post-20240413/5_network_encrypted.png)
-![Network capture plaintext](assets/images/post-20240413/5_network_plaintext.png)
+![Network capture encrypted](/assets/images/post-20240413/5_network_encrypted.png)
+![Network capture plaintext](/assets/images/post-20240413/5_network_plaintext.png)
 
 [https://my.f5.com/manage/s/article/K19310681](Decrypt TLS using Wireshark)
 
@@ -180,7 +190,7 @@ In case we can't configure a software to connect our rogue server, we still can 
 
 We can set our server to write a John format file and crack it right away.
 
-![Rogue MySQL](assets/images/post-20240413/5_crack_hash.png)
+![Rogue MySQL](/assets/images/post-20240413/5_crack_hash.png)
 
 [https://www.infosecmatter.com/metasploit-module-library/?mm=auxiliary/server/capture/mysql](Metasploit's MySQL server)
 
