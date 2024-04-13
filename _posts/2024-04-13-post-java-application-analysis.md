@@ -72,7 +72,7 @@ And we're finally done.
 
 
 
-[http://doc.docs.sk/mysql-refman-5.5/resetting-permissions.html](Reset MySQL root's password)
+- [http://doc.docs.sk/mysql-refman-5.5/resetting-permissions.html](Reset MySQL root's password)
 
 
 
@@ -95,7 +95,7 @@ And bingo, at the end of this file, we find these variables being set with strin
 ![Extracted setup script](/assets/images/post-20240413/1_extract_script.png)
 
 
-[http://havysoft.cl/](/assets/images/post-20240413/InnoExtractor homepage)
+- [http://havysoft.cl/](/assets/images/post-20240413/InnoExtractor homepage)
 
 
 ### Option 2 : Interception of the configuration script
@@ -118,7 +118,7 @@ We can therefore open and inspect the file, note the creation and modification r
 
 ![Bat script](/assets/images/post-20240413/2_script_bat.png)
 
-[https://learn.microsoft.com/fr-fr/sysinternals/downloads/procmon](/assets/images/post-20240413/Sysinternals procmon)
+- [https://learn.microsoft.com/fr-fr/sysinternals/downloads/procmon](/assets/images/post-20240413/Sysinternals procmon)
 
 
 ### Option 3 : Decompile the .class files
@@ -135,7 +135,7 @@ In my case, I quickly found a class which contains several constants used in var
 
 ![Decompile JAVA](/assets/images/post-20240413/3_jad_creds.png)
 
-[http://java-decompiler.github.io/](Java Decompiler)
+- [http://java-decompiler.github.io/](Java Decompiler)
 
 
 ### Option 4 : Digging in the process dump
@@ -158,9 +158,8 @@ By searching for "mysql", "password" or the mysql username if found before, you 
 ![Dump process memory](/assets/images/post-20240413/4_dump3.png)
 
 
-[https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer](Sysinternals ProcessExplorer)
-
-[https://mh-nexus.de/en/hxd/](HxD)
+- [https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer](Sysinternals ProcessExplorer)
+- [https://mh-nexus.de/en/hxd/](HxD)
 
 
 ### Some additionnal thoughts
@@ -185,7 +184,7 @@ But we can now see SQL queries in plaintext, meaning we could maybe grab sensiti
 ![Network capture plaintext](/assets/images/post-20240413/5_network_plaintext.png)
 
 
-[https://my.f5.com/manage/s/article/K19310681](Decrypt TLS using Wireshark)
+- [https://my.f5.com/manage/s/article/K19310681](Decrypt TLS using Wireshark)
 
 
 ##### Set up a rogue MySQL server
@@ -198,7 +197,7 @@ We can set our server to write a John format file and crack it right away.
 
 ![Rogue MySQL](/assets/images/post-20240413/5_rogue.png)
 
-[https://www.infosecmatter.com/metasploit-module-library/?mm=auxiliary/server/capture/mysql](Metasploit's MySQL server)
+- [https://www.infosecmatter.com/metasploit-module-library/?mm=auxiliary/server/capture/mysql](Metasploit's MySQL server)
 
 
 ##### Crack'em all
@@ -207,8 +206,7 @@ So we could grab MySQL hashes with at least two methods : from internal mysql.us
 So now, how do we retrieve 
 
 **Hash from mysql.user**
-```
-# with hashcat (WITHOUT leading *)
+```# with hashcat (WITHOUT leading *)
 hashcat -a 0 -m 300 hashes.txt wordlist.txt
 
 # with john (WITH leading *)
@@ -216,8 +214,7 @@ john -w=wordlist.txt hash.txt --format=mysql-sha1
 ```
 
 **Hash from rogue server**
-```
-# with hashshcat
+```# with hashshcat
 hashcat -a 0 -m 11200 hashes.txt wordlist.txt --username
 
 # with john
