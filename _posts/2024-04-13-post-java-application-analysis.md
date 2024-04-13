@@ -8,8 +8,6 @@ tags:
   - Java
 ---
 
-## Get that DB access : a Java application analysis
-
 
 At work, we use an internal software from another department.
 This software receives, processes and store data into a local MySQL database ; this data in itself is very useful, but the software does not do much with it and does not allow you to retrieve it so we would be able process it as you wish.
@@ -32,7 +30,7 @@ Once we got root, we can of course access all needed data, but also create a new
 But this is not ideal : we need to do this on each standalone computer, this setup is not noob-friendly, and ... too easy ? For the challenge I wanted to go deeper.
 
 
-#### Detailled instructions
+##### Detailled instructions
 So our goal here is to takeover the MySQL server, create our own user, and restore root's original password (remember, we don't want to break our software's database access and we want to remain as stealth as possible)
 
 ```
@@ -112,6 +110,7 @@ This file is supposed to be deleted immediately after execution, but it is easy 
 
 
 ![Script](/assets/images/post-20240413/2_script_save.png)
+
 (Call me lazy, but this just works)
 
 
@@ -169,7 +168,7 @@ By searching for "mysql", "password" or the mysql username if found before, you 
 As a last part, I'll add a note on network capture and hash cracking.
 
 
-#### Network capture with wireshark
+##### Network capture with wireshark
 
 MySQL can communicate over network plaintext or encrypted (TLS).
 
@@ -189,7 +188,7 @@ But we can now see SQL queries in plaintext, meaning we could maybe grab sensiti
 [https://my.f5.com/manage/s/article/K19310681](Decrypt TLS using Wireshark)
 
 
-#### Set up a rogue MySQL server
+##### Set up a rogue MySQL server
 
 Metasploit auxiliaries tools include a rogue MySQL server, so if we can force our software to connect to our MySQL server, we will receive a challenge/response auth.
 
@@ -202,12 +201,12 @@ We can set our server to write a John format file and crack it right away.
 [https://www.infosecmatter.com/metasploit-module-library/?mm=auxiliary/server/capture/mysql](Metasploit's MySQL server)
 
 
-#### Crack'em all
+##### Crack'em all
 
 So we could grab MySQL hashes with at least two methods : from internal mysql.user table, and intercepting challenge/response with a rogue server.
 So now, how do we retrieve 
 
-##### Hash from mysql.user
+**Hash from mysql.user**
 ```
 # with hashcat (WITHOUT leading *)
 hashcat -a 0 -m 300 hashes.txt wordlist.txt
@@ -216,7 +215,7 @@ hashcat -a 0 -m 300 hashes.txt wordlist.txt
 john -w=wordlist.txt hash.txt --format=mysql-sha1
 ```
 
-##### Hash from rogue server
+**Hash from rogue server**
 ```
 # with hashshcat
 hashcat -a 0 -m 11200 hashes.txt wordlist.txt --username
@@ -226,6 +225,5 @@ john -w=wordlist.txt hash_mysqlna
 ```
 ![Rogue MySQL](/assets/images/post-20240413/5_crack_hash.png)
 
-[https://hashcat.net/wiki/doku.php?id=example_hashes](Hashcat hash formats)
-
-[https://pentestmonkey.net/cheat-sheet/john-the-ripper-hash-formats](john hash formats)
+- [https://hashcat.net/wiki/doku.php?id=example_hashes](Hashcat hash formats)
+- [https://pentestmonkey.net/cheat-sheet/john-the-ripper-hash-formats](john hash formats)
