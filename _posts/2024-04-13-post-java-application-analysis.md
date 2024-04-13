@@ -36,32 +36,36 @@ But this is not ideal : we need to do this on each standalone computer, this set
 So our goal here is to takeover the MySQL server, create our own user, and restore root's original password (remember, we don't want to break our software's database access and we want to remain as stealth as possible)
 
 ```
-#start mysqld with :
+#Start mysqld with :
 mysqld --skip-grant-tables
 
-#connect as root without password
+#Connect as root without password
 mysql -u root
 
-#save current root's hash (don't forget leading *)
-select password from mysql.user where user='root';
+#Save current root's hash (don't forget leading *)
+select host, usern, password from mysql.user;
+```
 
-#log out and stop mysqld
+![Root password](/assets/images/post-20240413/0_mysql_root_pass.png)
 
-#create a file at C:\mysql-init.txt containing :
+```
+#Ok now log out, and stop mysqld
+
+#Create a file at C:\mysql-init.txt containing :
 UPDATE mysql.user SET password=PASSWORD('MyNewPass') WHERE user='root';
 FLUSH PRIVILEGES;
 
-#start mysql with :
+#Start mysql and execute our script at startup :
 mysqld --init-file=C:\mysql-init.txt
 
-#connect with these new credentials
+#We now can login using these credentials
 mysql -u root -pMyNewPass
 
-#create our own privileged user
+#Create our own privileged user
 CREATE USER '20100dbg'@'localhost' IDENTIFIED BY '20100dbg';
 GRANT ALL ON *.* TO '20100dbg'@'localhost' WITH GRANT OPTION;
 
-#restore root's original password
+#And restore root's original password
 UPDATE mysql.user SET password='<HASH>', authentication_string=NULL WHERE user='root';
 FLUSH PRIVILEGES;
 ```
@@ -69,7 +73,7 @@ FLUSH PRIVILEGES;
 And we're finally done.
 
 ![Reset MySQL password](/assets/images/post-20240413/0_mysql_reset.png)
-![Root password](/assets/images/post-20240413/0_mysql_root_pass.png)
+
 
 [http://doc.docs.sk/mysql-refman-5.5/resetting-permissions.html](Reset MySQL root's password)
 
@@ -78,19 +82,18 @@ And we're finally done.
 ### Option 1 : Extracting the installer
 
 It turns out that it is possible to recover the password without even installing the application.
-The installer takes care of installing and configuring the MySQL database (creating a user, assigning passwords, etc.). But to perform these tasks, the installer needs to connect to Mysql, right?
+The app's installer takes care of installing and configuring the MySQL database (creating a user, setting passwords, etc.). But to perform these tasks, the installer needs to connect to Mysql, right ? And so use credentials, probably root's one ?
 
 Several tools exist for decompressing setups, but InnoExtractor was the most useful. After dissecting the executable, we find icons, scripts, a binary and an extraction of this binary, a file called CodeSection.txt
 
 ![Extracted setup files](/assets/images/post-20240413/1_extract_files.png)
 
 
-In this file we find several SQL queries, in particular to create a user and set passwords. And bingo, at the end of this file, we find two strings looking like passwords.
+In this file we find several SQL queries, and we focus on one that should set a password with `IDENTIFIED BY`. No password here yet, but it looks like GlobalVar[7] and GlobalVar[8] could store a password.
 
 ![Extracted setup script](/assets/images/post-20240413/1_extract_script.png)
 
-
-This is easily confirmed by searching for GlobalVar[7] and GlobalVar[8], and indeed these variables are used for the identification and creation of a user.
+And bingo, at the end of this file, we find these variables being set with strings looking like passwords.
 
 ![Extracted setup script 2](/assets/images/post-20240413/1_extract_script_2.png)
 
@@ -100,8 +103,8 @@ This is easily confirmed by searching for GlobalVar[7] and GlobalVar[8], and ind
 
 ### Option 2 : Interception of the configuration script
 
-By monitoring file system activity with ProcMon during software installation, one can track file creations, modifications and deletions.
-This monitoring quickly shows that the installer creates a file named mysql_setup.bat. This is a MySQL database configuration script, and contains the queries observed in the CodeSection.txt file seen in the previous method.
+By monitoring file system activity with ProcMon during a software installation, one can track file creations, modifications and deletions.
+This monitoring quickly shows that the installer creates a .bat file. This is a MySQL database configuration script, and contains the queries observed in the CodeSection.txt file seen in the previous method.
 
 ![Process monitor](/assets/images/post-20240413/2_procmon.png)
 
@@ -113,7 +116,7 @@ This file is supposed to be deleted immediately after execution, but it is easy 
 
 We can therefore open and inspect the file, note the creation and modification requests from MySQL users, and extract the passwords.
 
-![Bat script](/assets/images/post-20240413/2_script_bat.png.png)
+![Bat script](/assets/images/post-20240413/2_script_bat.png)
 
 [https://learn.microsoft.com/fr-fr/sysinternals/downloads/procmon](/assets/images/post-20240413/Sysinternals procmon)
 
@@ -168,15 +171,16 @@ As a last part, I'll add a note on network capture and hash cracking.
 
 MySQL can communicate over network plaintext or encrypted (TLS).
 
-In my case, network was indeed encrypted. If we open again our mysql_setup.bat file, we see that this script generates RSA keys with OpenSSL in order to encrypt the exchanges between the MySQL server and the application. 
+In my case, MySQL paquets were indeed encrypted. If we open again our .bat setup file, we see that this script generates RSA keys with OpenSSL in order to encrypt the exchanges between the MySQL server and the application. 
 Obviously, the key files (PEM extension) must be somewhere in software's directory so it can initiate connexion at each startup.
 
 We just need to find those PEM files and add them in Wireshark, so TLS packets get decrypted back to MySQL packets.
 
-Anyway MySQL auth protocol being secure enough, we won't intercept mysql users' creds that way.
-But we can see SQL queries in plaintext, meaning we could maybe grab sensitive data, such as software-level credentials, columns and tables names, maybe potentials SQLi vectors ?
+MySQL auth protocol being secure enough, we won't intercept mysql users' creds that way.
+But we can now see SQL queries in plaintext, meaning we could maybe grab sensitive data, such as software-level credentials, columns and tables names, maybe potentials SQLi vectors ?
 
 ![Network capture encrypted](/assets/images/post-20240413/5_network_encrypted.png)
+
 ![Network capture plaintext](/assets/images/post-20240413/5_network_plaintext.png)
 
 [https://my.f5.com/manage/s/article/K19310681](Decrypt TLS using Wireshark)
