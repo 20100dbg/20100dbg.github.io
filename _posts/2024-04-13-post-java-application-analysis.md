@@ -43,7 +43,7 @@ mysqld --skip-grant-tables
 mysql -u root
 
 #Save current root's hash (don't forget leading *)
-select host, usern, password from mysql.user;
+select host, user, password from mysql.user;
 ```
 
 ![Root password](/assets/images/post-20240413/0_mysql_root_pass.png)
@@ -112,7 +112,6 @@ This file is supposed to be deleted immediately after execution, but it is easy 
 
 
 ![Script](/assets/images/post-20240413/2_script_save.png)
-
 (Call me lazy, but this just works)
 
 
@@ -133,7 +132,7 @@ Among the JAR files, we can try to identify those that may be interesting for us
 
 If no particular JAR file stands out, you can always decompile the whole thing and look for SQL queries in the code, then rewind the code until you find code making the connection to MySQL, and finally find dabase creds.
 
-In my case, I quickly found a class which contains several constants used in various parts of the software, including my famous MySQL accesses.
+In my case, I quickly found a class which contains several constants used in various parts of the software, including much wanted MySQL access.
 
 ![Decompile JAVA](/assets/images/post-20240413/3_jad_creds.png)
 
@@ -156,10 +155,12 @@ Maybe we will find something interesting inside such dump ?
 
 Let's open the file with a hex editor (I like HxD)
 By searching for "mysql", "password" or the mysql username if found before, you can easily find the password several times
+
 ![Dump process memory](/assets/images/post-20240413/4_dump3.png)
 
 
 [https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer](Sysinternals ProcessExplorer)
+
 [https://mh-nexus.de/en/hxd/](HxD)
 
 
@@ -173,6 +174,7 @@ As a last part, I'll add a note on network capture and hash cracking.
 MySQL can communicate over network plaintext or encrypted (TLS).
 
 In my case, MySQL paquets were indeed encrypted. If we open again our .bat setup file, we see that this script generates RSA keys with OpenSSL in order to encrypt the exchanges between the MySQL server and the application. 
+
 ![Network capture encrypted](/assets/images/post-20240413/5_network_encrypted.png)
 
 Obviously, the key files (PEM extension) must be somewhere in software's directory so it can initiate connexion at each startup.
@@ -222,7 +224,8 @@ hashcat -a 0 -m 11200 hashes.txt wordlist.txt --username
 # with john
 john -w=wordlist.txt hash_mysqlna
 ```
-![Rogue MySQL](/assets/images/post-20240413/5_crack.png)
+![Rogue MySQL](/assets/images/post-20240413/5_crack_hash.png)
 
 [https://hashcat.net/wiki/doku.php?id=example_hashes](Hashcat hash formats)
+
 [https://pentestmonkey.net/cheat-sheet/john-the-ripper-hash-formats](john hash formats)
