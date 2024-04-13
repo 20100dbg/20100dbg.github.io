@@ -72,7 +72,6 @@ FLUSH PRIVILEGES;
 
 And we're finally done.
 
-![Reset MySQL password](/assets/images/post-20240413/0_mysql_reset.png)
 
 
 [http://doc.docs.sk/mysql-refman-5.5/resetting-permissions.html](Reset MySQL root's password)
@@ -91,11 +90,11 @@ Several tools exist for decompressing setups, but InnoExtractor was the most use
 
 In this file we find several SQL queries, and we focus on one that should set a password with `IDENTIFIED BY`. No password here yet, but it looks like GlobalVar[7] and GlobalVar[8] could store a password.
 
-![Extracted setup script](/assets/images/post-20240413/1_extract_script.png)
+![Extracted setup script 2](/assets/images/post-20240413/1_extract_script_2.png)
 
 And bingo, at the end of this file, we find these variables being set with strings looking like passwords.
 
-![Extracted setup script 2](/assets/images/post-20240413/1_extract_script_2.png)
+![Extracted setup script](/assets/images/post-20240413/1_extract_script.png)
 
 
 [http://havysoft.cl/](/assets/images/post-20240413/InnoExtractor homepage)
@@ -110,6 +109,9 @@ This monitoring quickly shows that the installer creates a .bat file. This is a 
 
 
 This file is supposed to be deleted immediately after execution, but it is easy to copy it before deletion. In the event that the file is deleted too quickly for a human to copy it, one can create a script that would monitor the creation of files in the affected directory and perform the copy automatically.
+
+
+![Script](/assets/images/post-20240413/2_script_save.png)
 
 (Call me lazy, but this just works)
 
@@ -151,7 +153,6 @@ A process dump contains many infos about a running application, its code and mem
 Maybe we will find something interesting inside such dump ?
 
 ![Dump process memory](/assets/images/post-20240413/4_dump.png)
-![Dump process memory](/assets/images/post-20240413/4_dump2.png)
 
 Let's open the file with a hex editor (I like HxD)
 By searching for "mysql", "password" or the mysql username if found before, you can easily find the password several times
@@ -172,16 +173,16 @@ As a last part, I'll add a note on network capture and hash cracking.
 MySQL can communicate over network plaintext or encrypted (TLS).
 
 In my case, MySQL paquets were indeed encrypted. If we open again our .bat setup file, we see that this script generates RSA keys with OpenSSL in order to encrypt the exchanges between the MySQL server and the application. 
-Obviously, the key files (PEM extension) must be somewhere in software's directory so it can initiate connexion at each startup.
+![Network capture encrypted](/assets/images/post-20240413/5_network_encrypted.png)
 
+Obviously, the key files (PEM extension) must be somewhere in software's directory so it can initiate connexion at each startup.
 We just need to find those PEM files and add them in Wireshark, so TLS packets get decrypted back to MySQL packets.
 
 MySQL auth protocol being secure enough, we won't intercept mysql users' creds that way.
 But we can now see SQL queries in plaintext, meaning we could maybe grab sensitive data, such as software-level credentials, columns and tables names, maybe potentials SQLi vectors ?
 
-![Network capture encrypted](/assets/images/post-20240413/5_network_encrypted.png)
-
 ![Network capture plaintext](/assets/images/post-20240413/5_network_plaintext.png)
+
 
 [https://my.f5.com/manage/s/article/K19310681](Decrypt TLS using Wireshark)
 
@@ -194,7 +195,7 @@ In case we can't configure a software to connect our rogue server, we still can 
 
 We can set our server to write a John format file and crack it right away.
 
-![Rogue MySQL](/assets/images/post-20240413/5_crack_hash.png)
+![Rogue MySQL](/assets/images/post-20240413/5_rogue.png)
 
 [https://www.infosecmatter.com/metasploit-module-library/?mm=auxiliary/server/capture/mysql](Metasploit's MySQL server)
 
@@ -221,6 +222,7 @@ hashcat -a 0 -m 11200 hashes.txt wordlist.txt --username
 # with john
 john -w=wordlist.txt hash_mysqlna
 ```
+![Rogue MySQL](/assets/images/post-20240413/5_crack.png)
 
 [https://hashcat.net/wiki/doku.php?id=example_hashes](Hashcat hash formats)
 [https://pentestmonkey.net/cheat-sheet/john-the-ripper-hash-formats](john hash formats)
