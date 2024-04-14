@@ -206,7 +206,8 @@ So we could grab MySQL hashes with at least two methods : from internal mysql.us
 So now, how do we retrieve 
 
 **Hash from mysql.user**
-```# with hashcat (WITHOUT leading *)
+```
+# with hashcat (WITHOUT leading *)
 hashcat -a 0 -m 300 hashes.txt wordlist.txt
 
 # with john (WITH leading *)
@@ -214,7 +215,8 @@ john -w=wordlist.txt hash.txt --format=mysql-sha1
 ```
 
 **Hash from rogue server**
-```# with hashshcat
+```
+# with hashshcat
 hashcat -a 0 -m 11200 hashes.txt wordlist.txt --username
 
 # with john
