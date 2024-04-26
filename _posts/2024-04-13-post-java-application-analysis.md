@@ -203,7 +203,7 @@ We can set our server to write a John format file and crack it right away.
 ##### Crack'em all
 
 So we could grab MySQL hashes with at least two methods : from internal mysql.user table, and intercepting challenge/response with a rogue server.
-So now, how do we retrieve 
+So now, how do we retrieve each one ?
 
 **Hash from mysql.user**
 ```
