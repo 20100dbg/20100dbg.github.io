@@ -107,7 +107,7 @@ We only have to paste our dropper in Run() function and that's it.
 
 Let's compile :
 ```
-mingw32-gcc.exe .\service.c -lwsock32
+mingw32-gcc.exe .\stager.c -lwsock32
 ```
 
 And here's the result :
