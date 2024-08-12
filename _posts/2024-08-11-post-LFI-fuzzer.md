@@ -28,7 +28,7 @@ Enough words of introduction, let's highlight some key features. A complete list
 
 ### Key features
 
-*-p / --path-prefix*
+###### -p / --path-prefix
 This add a prefix before your payload.
 For example : `-p xxx/`
 
@@ -41,7 +41,7 @@ Moreover, this option allows you to add a PHP filter : `-p php://filter/convert.
 Will result in : `http://victim.com/?page=php://filter/convert.base64-encode/resource=../../../etc/passwd`
 
 
-*-m / --traversal-method*
+###### -m / --traversal-method
 This will replace classic path traversal `../`.
 For example : `-m 2`
 Will result in `http://victim.com/?page=....//....//etc/passwd`
@@ -49,12 +49,12 @@ Will result in `http://victim.com/?page=....//....//etc/passwd`
 This will bypass simple protections against path traversal such as `$page = str_replace($page, '../', '')`
 
 
-*-s / --stress*
+###### -s / --stress
 The stress option will perform every variation for every parameter on each item of a given wordlist. 
 This is a useful bruteforce option if you are in a hurry, and if you don't care about being noisy.
 
 
-***Sucess/error detection***
+#### Sucess/error detection
 
 Ignore if a result length is < 1300
 ```
