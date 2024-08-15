@@ -38,7 +38,7 @@ User needs to provide a URL and a wordlist. In current version, URL is expected 
 - path-prefix : prefix payload with a required folder or php filter 
 - append-null : add a null byte at the end of the payload
 - traversal-method : will use ../ or ..// or ....// or randomly generated
-- dir-separator : will use / or \ or \\ or /./
+- dir-separator : will use / or \ or \\\\ or /./
 - var : replace `[VAR]` placeholder in some payloads with given value
 
 ##### Some other parameters
