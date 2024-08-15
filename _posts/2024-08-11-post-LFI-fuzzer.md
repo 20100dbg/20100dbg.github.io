@@ -3,7 +3,9 @@ title: "LFI fuzzer"
 categories:
   - Pentest
 tags:
-  - Python, Webapp, File Inclusion
+  - Python
+  - Webapp
+  - File Inclusion
 ---
 
 
@@ -26,40 +28,31 @@ Acknowledging these issues, the idea is to have a specific, simple tool to LFI/R
 Enough words of introduction, let's highlight some key features. A complete list of arguments is available on the [LFI fuzzer repo](https://github.com/20100dbg/Python-Stuff/tree/master/LFI_fuzzer)
 
 
-### Key features
+### Features
 
-###### -p / --path-prefix
-This add a prefix before your payload.
-For example : `-p xxx/`
+User needs to provide a URL and a wordlist. In current version, URL is expected to be something like `http://victim.com/?page=` and payloads will be appended to it.
 
-Will result in something like `http://victim.com/?page=xxx/../../../etc/passwd`
+##### Fuzz parameters
+- nb-parents : how many directories to traverse
+- encode : encode 0, 1 or 2 times
+- path-prefix : prefix payload with a required folder or php filter 
+- append-null : add a null byte at the end of the payload
+- traversal-method : will use ../ or ..// or ....// or randomly generated
+- dir-separator : will use / or \ or \\ or /./
+- var : replace `[VAR]` placeholder in some payloads with given value
 
-This allows to bypass some basic checks trying to determine if a requested page is in a specific directory : `substr($page, 0, 8) == 'include/'`
-
-Moreover, this option allows you to add a PHP filter : `-p php://filter/convert.base64-encode/resource=`
-
-Will result in : `http://victim.com/?page=php://filter/convert.base64-encode/resource=../../../etc/passwd`
-
-
-###### -m / --traversal-method
-This will replace classic path traversal `../`.
-For example : `-m 2`
-Will result in `http://victim.com/?page=....//....//etc/passwd`
-
-This will bypass simple protections against path traversal such as `$page = str_replace($page, '../', '')`
+##### Some other parameters
+- stress : tries every variation for every parameter on each item of a given wordlist
+- download : save result of successful attempts
 
 
-###### -s / --stress
-The stress option will perform every variation for every parameter on each item of a given wordlist. 
-This is a useful bruteforce option if you are in a hurry, and if you don't care about being noisy.
-
-
-#### Sucess/error detection
+##### Sucess/error detection
 
 Ignore if a result length is < 1300
 ```
 --min-length 1300
 ```
+
 Looking for a specific string in files
 /etc/passwd should contains `root:x:0:0`
 ```
@@ -77,5 +70,10 @@ Possible error message
 ```
 
 
-That's all folks ! I hope you'll find this tool as useful as I do !
+### Possible future features
 
+- Support payload anywhere in URL, in POST data, cookies and headers
+- Extend `--var` parameter to support a wordlist
+- More encoding options
+
+That's all folks ! I hope you'll find this tool as useful as I do !
