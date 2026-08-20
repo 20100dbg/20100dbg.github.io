@@ -73,7 +73,7 @@ And we're finally done.
 
 
 
-- [Reset MySQL root's password](http://doc.docs.sk/mysql-refman-5.5/resetting-permissions.html)
+- [Reset MySQL root's password](https://doc.docs.sk/mysql-refman-5.5/resetting-permissions.html)
 
 
 
@@ -96,7 +96,7 @@ And bingo, at the end of this file, we find these variables being set with strin
 ![Extracted setup script](/assets/images/post-20240413/1_extract_script.png)
 
 
-- [InnoExtractor homepage](http://havysoft.cl)
+- [InnoExtractor homepage](https://havysoft.cl)
 
 
 ### Option 2 : Interception of the configuration script
@@ -136,7 +136,7 @@ In my case, I quickly found a class which contains several constants used in var
 
 ![Decompile JAVA](/assets/images/post-20240413/3_jad_creds.png)
 
-- [Java Decompiler](http://java-decompiler.github.io/)
+- [Java Decompiler](https://java-decompiler.github.io/)
 
 
 ### Option 4 : Digging in the process dump
@@ -156,7 +156,7 @@ Maybe we will find something interesting inside such dump ?
 Let's open the file with a hex editor (I like HxD)
 By searching for "mysql", "password" or the mysql username if found before, you can easily find the password several times
 
-![Dump process memory](/assets/images/post-20240413/4_dump3.png)
+![Dump process memory](/assets/images/post-20240413/4_dump2.png)
 
 
 - [Sysinternals ProcessExplorer](https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer)
