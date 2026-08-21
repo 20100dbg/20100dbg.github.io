@@ -282,6 +282,8 @@ https://portswigger.net/burp/documentation/desktop/settings/network/connections
 #### reverse-ssh
 [reverse-ssh](https://github.com/Fahrj/reverse-ssh)
 
+Check my [modest fork](https://github.com/20100dbg/reverse-ssh) that add support for runtime custom password and SSH key, along with a README update bringing hopfully clearer explanations and examples.
+
 
 Assume you want to establish an SSH tunnel, but the target is not running an SSH server, or you cannot obtain or add valid SSH credentials.
 
@@ -311,6 +313,8 @@ scp -P 8888 file.txt root@127.0.0.1:/tmp/file.txt
 # Dynamic port forwarding as SOCKS proxy on port 9050
 ssh -D 9050 root@127.0.0.1
 ```
+
+
 
 
 ## Tips & tricks

@@ -16,7 +16,7 @@ Like many other things in tech, a beginner in LoRa will have to browse from inco
 
 
 
-### One protole, many hardware
+### One protocol, many hardware
 
 I could try quite a few different flavours of LoRa :
 
@@ -36,10 +36,9 @@ Here's my repo : [https://github.com/20100dbg/lora](https://github.com/20100dbg/
 
 ### Ebyte 
 
-air data rate : implicit setting of spreading factor + coding rate
+- air data rate : implicit setting of spreading factor + coding rate
 
-
-About addresses : Using transparent transmssion mode (default), your local address MUST match your recipient one : if A is sending a message to B, A must have B's address and network (at least temporarly) 
+- ddresses : Using transparent transmssion mode (default), your local address MUST match your recipient one : if A is sending a message to B, A must have B's address and network (at least temporarly) 
 
 We can use special address 65535 that allow broadcast (send to everyone) and monitoring (listen from everyone). A broadcast message is sent to any address and any network.
 
