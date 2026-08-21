@@ -48,7 +48,6 @@ lfi_fuzzer supports:
 - timeout
 - proxy
 
-
 ##### Fuzz parameters
 - depth: how many directories to traverse
 - encode: (0-5) various URL encoding modes
@@ -58,15 +57,20 @@ lfi_fuzzer supports:
 - separator : will use / or \ or \\\\ or /./
 - var : replace `[VAR]` placeholder in with given value
 
-##### Some other parameters
-- stress : tries every variation for every parameter on each item of a given wordlist
-- download : save result of successful attempts
-
+##### Actions
+- stress : Tries every variation for every parameter with "/etc/passwd"
+- download : Directory path to store matched results to
+- print : Just print payloads, don't send any request
+- debug : Print more debug info
 
 ##### Matching and filtering options
 
-They are pretty much the same 
+They are pretty much the same as ffuf, except -mr/-fr don't support regex yet, only full-text search
 
-
-### Possible future features
-- Extend `--var` parameter to support a wordlist
+- -mc :         Match HTTP status codes, or "all" for everything.
+- -ml :         Match amount of lines in response
+- -mmode {or,and}       Matcher set operator. Either of: and, or
+- -mr :         Match text
+- -ms :         Match HTTP response size
+- -mt :         Match how many milliseconds to the response, either greater or less than.
+- -mw :         Match amount of words in response

